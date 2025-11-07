@@ -4,9 +4,10 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  root: resolve(__dirname, 'src'), // Esto fuerza que use src como raíz
+  root: resolve(__dirname, 'src'), 
   server: {
     port: 5178
   }
 })
+
 
