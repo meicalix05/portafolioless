@@ -1,25 +1,19 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
+import { defineConfig } from 'vite'
+import { resolve } from 'path'
 
 export default defineConfig({
-  appType: 'mpa',
-  base: './',
+  base: './',  
+  root: resolve(__dirname, 'src'),
   build: {
+    outDir: '../dist',
+    assetsDir: 'assets',
     rollupOptions: {
       input: {
-        index: resolve(dirname, 'index.html'),
+        main: resolve(__dirname, 'src/index.html')
       }
     }
   },
-  css: {
-    preprocessorOptions: {
-      less: {
-        math: 'always',
-        javascriptEnabled: true
-      }
-    }
-  },
-  optimizeDeps: {
-    include: ['less']
-  }
+  server: {
+    port: 5178
+  }
 })
