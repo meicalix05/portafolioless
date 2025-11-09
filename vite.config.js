@@ -6,6 +6,7 @@ export default defineConfig({
   root: resolve(__dirname, 'src'),
   build: {
     outDir: '../dist',
+    assetsDir: 'assets',
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src/index.html')
@@ -14,16 +15,6 @@ export default defineConfig({
   },
   server: {
     port: 5178
-  },
-  css: {
-    preprocessorOptions: {
-      less: {
-        math: 'always',
-        relativeUrls: true,
-        javascriptEnabled: true
-      }
-    }
   }
 })
-
 
