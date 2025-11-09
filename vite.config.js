@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  base: process.env.DEPLOY_BASE_URL || '/',
+  base: './',  
   root: resolve(__dirname, 'src'),
   build: {
     outDir: '../dist',
@@ -17,4 +17,3 @@ export default defineConfig({
     port: 5178
   }
 })
-
