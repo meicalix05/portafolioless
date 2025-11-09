@@ -19,7 +19,7 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.github-pages.output.url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Clonar Repositorio
@@ -31,7 +31,7 @@ jobs:
       - name: Instalar Dependencias del Proyecto
         run: npm install
       - name: Compilar Sitio (BUILD)
-        run: npm run build
+        run: npx vite build
       - name: Configurar Github Pages
         uses: actions/configure-pages@v5
       - name: Subir el Sitio compilado a GP
@@ -46,5 +46,3 @@ jobs:
 
 
 
-
-        
