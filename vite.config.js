@@ -8,12 +8,21 @@ export default defineConfig({
     outDir: '../dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.html'),
+        main: resolve(__dirname, 'src/index.html')
       }
     }
   },
   server: {
     port: 5178
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        math: 'always',
+        relativeUrls: true,
+        javascriptEnabled: true
+      }
+    }
   }
 })
 

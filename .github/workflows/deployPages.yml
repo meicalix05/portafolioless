@@ -1,16 +1,18 @@
-name: VITE MPA Proceso de Despligue a Github Pages
+name: VITE MPA Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 env:
   DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL }}
+
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -19,25 +21,40 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.github-pages.output.url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Clonar Repositorio
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Instalar NodeJS
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Instalar Dependencias del Proyecto
-        run: npm install
-      - name: Compilar Sitio (BUILD)
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm install
+          
+          
+      - name: Build project
         run: npm run build
-      - name: Configurar Github Pages
+        
+      - name: Verify build output
+        run: |
+          ls -la dist/
+          echo "Checking if CSS was generated:"
+          find dist/ -name "*.css" | head -5
+          
+      - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Subir el Sitio compilado a GP
+        
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-      - name: Deploy Pages
+          path: ./dist
+          
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
