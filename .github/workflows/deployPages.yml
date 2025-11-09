@@ -27,10 +27,13 @@ jobs:
       - name: Instalar NodeJS
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Instalar Dependencias del Proyecto
-        run: npm install
-      - name: Compilar Sitio (BUILD)
+          node-version: '18'
+      - name: Instalar Dependencias
+        run: |
+          rm -rf node_modules
+          npm install
+          npx vite --version || npm install vite --save-dev
+      - name: Compilar Sitio
         run: npx vite build
       - name: Configurar Github Pages
         uses: actions/configure-pages@v5
