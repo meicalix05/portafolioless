@@ -32,7 +32,7 @@ jobs:
     name: Instalar dependencias
     run: npm install
     name: Verificar variables de Ambient
-    run: echo "DEPLOY_BASE_URL: $DEPLOY_BASE_URL"
+    run: echo "DEPLOY_BASE_URL $DEPLOY_BASE_URL"
     name: Compilar proyecto
     run: npm run build
     name: Configurar github pages
