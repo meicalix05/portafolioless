@@ -1,4 +1,4 @@
-name: VITE MPA Proceso de Despligue a Github Pages
+name: VITE MPA Proceso de Despliegue a Github Pages
 
 on:
   push:
@@ -19,25 +19,35 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.github-pages.output.url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Clonar Repositorio
         uses: actions/checkout@v4
+        
       - name: Instalar NodeJS
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          
       - name: Instalar Dependencias del Proyecto
-        run: npm install
+        run: npm ci --prefer-offline
+        
+      - name: Verificar instalación de Vite
+        run: npx vite --version
+        
       - name: Compilar Sitio (BUILD)
         run: npm run build
+        
       - name: Configurar Github Pages
         uses: actions/configure-pages@v5
+        
       - name: Subir el Sitio compilado a GP
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
-      - name: Deploy Pages
+          
+      - name: Desplegar en GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
